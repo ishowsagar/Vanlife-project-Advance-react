@@ -11,9 +11,14 @@ export default function Vans() {
 
   const vanElements = vans.map((van) => (
     <div key={van.id} className="van-tile">
-      <Link to={`/vans/${van.id}`}>
+      <Link
+        to={`/vans/${van.id}`}
+        aria-label={`View details for ${van.name}, 
+                             priced at $${van.price} per day`}
+      >
         <img src={van.imageUrl} />
         <div className="van-info">
+          {/* we could chnage h3 to p for a11y fixations as it won't say heading 3 while reading with Ata screen reader */}
           <h3>{van.name}</h3>
           <p>
             ${van.price}
