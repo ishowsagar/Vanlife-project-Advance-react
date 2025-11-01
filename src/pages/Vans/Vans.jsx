@@ -21,6 +21,11 @@ export default function Vans() {
     <div key={van.id} className="van-tile">
       <Link
         to={van.id}
+        // passing (location)-state object to where this links heading t that comp and useLocation will grab this state
+        state={{
+          search: `?${searchParams.toString()}`,
+          type: typeFilter,
+        }}
         aria-label={`View details for ${van.name}, 
                              priced at $${van.price} per day`}
       >

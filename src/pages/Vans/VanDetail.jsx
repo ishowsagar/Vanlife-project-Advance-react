@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 
 // params is just paramters short form
 export default function VanDetail() {
   const [van, setVans] = useState(null);
   const params = useParams();
+  const location = useLocation(); // grabs what is coming from passed history state from where it is defined to where it is accessed
 
   // it will load that van object from api server which would have this id
   useEffect(() => {
@@ -14,8 +15,17 @@ export default function VanDetail() {
       .then((data) => setVans(data.vans));
   }, [params.id]);
 
+  // condtionally returns something with optional chaining mehod* ( might need more info)
+
+  const search = location.state?.search || "";
+  const type = location.state?.type || "all";
+
   return (
     <div className="van-detail-container">
+      <Link to={`..${search}`} relative="path" className="back-button">
+        &larr; <span>Back to {type} vans</span>
+      </Link>
+
       {van ? (
         <div className="van-detail">
           <img src={van.imageUrl} alt="" />
