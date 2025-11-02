@@ -6,15 +6,23 @@ export default function Vans() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [vans, setVans] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   const typeFilter = searchParams.get("type");
 
   React.useEffect(() => {
     async function loadVans() {
       setLoading(true);
-      const data = await getVans();
-      setVans(data);
-      setLoading(false);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        // console.log(err);
+        // console.log("There was an error!");
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
     }
     loadVans();
   }, []);
@@ -59,9 +67,15 @@ export default function Vans() {
       return prevParams;
     });
   }
-
+  // show this early return/screen to display while fetch req has not done loading
   if (loading) {
-    return <h1>loading...</h1>
+    return <h1 aria-live="polite">loading...</h1>;
+  }
+
+  // show this early return/screen to display while fetch req has undergone some error
+
+  if (error) {
+    return <h1 aria-live="assertive">There was an error : {error.message}</h1>;
   }
 
   return (
