@@ -7,7 +7,6 @@ export default function Header() {
     localStorage.removeItem("loggedin");
   }
 
-  
   return (
     <header>
       <Link className="site-logo" to="/">
@@ -18,7 +17,7 @@ export default function Header() {
           to="/host"
           className={({ isActive }) => (isActive ? "active-link" : null)}
         >
-          Host
+          Admin
         </NavLink>
         <NavLink
           to="/about"
