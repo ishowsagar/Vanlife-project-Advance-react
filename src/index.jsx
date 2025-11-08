@@ -20,7 +20,7 @@ import NotFound from "./pages/NotFound";
 import AuthRequired from "./components/AuthRequired";
 import Login from "./pages/Login";
 
-function App() {
+export function App() {
   return (
     <BrowserRouter>
       <Routes>
